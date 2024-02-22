@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { SyntheticEvent, useState } from "react";
 import Button from "./Button";
 
 const TextPrint = () => {
@@ -9,13 +9,13 @@ const TextPrint = () => {
 	];
 
 	const [text, setText] = useState<string>("");
-	const printText = () => {
-		setText((prev) => cartData[0].content);
+	const printText = (e: SyntheticEvent) => {
+		setText(e.currentTarget.innerHTML);
 	};
 
 	return (
 		<>
-			{cartData.map((value, index) => {
+			{cartData.map((value) => {
 				return <Button content={value.content} action={printText} />;
 			})}
 			<div>{text}</div>
