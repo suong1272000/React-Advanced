@@ -13,16 +13,21 @@ const Todolist = () => {
 			setTodo([...todo, { todo: userInput }]);
 		}
 	};
+	const DeleteAction = (indexToDelete: number) => {
+		const updateTodo = [...todo];
+		updateTodo.splice(indexToDelete, 1);
+		setTodo(updateTodo);
+	}
 
 	return (
 		<>
 			<h2>Todo</h2>
 			<div>
 				{todo.map((v) => (
-					<div>{v.todo}</div>
+					<div>{v.todo}<Button content="Delete" action={() => DeleteAction(todo.findIndex((item) => item.todo === v.todo))}/></div>
 				))}
 			</div>
-			<Button action={Prompt} />
+			<Button content="Add todo" action={Prompt} />
 		</>
 	);
 };
