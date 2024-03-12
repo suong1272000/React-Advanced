@@ -1,40 +1,24 @@
-import { useEffect, useState } from "react";
-import Picture, { pictureProps } from "./Picture";
-import Counter from "./Counter";
+import { useState } from "react";
+import Icons, { IconsProps } from "./Icons";
+import { faBoxTissue, faEye, faSyringe } from "@fortawesome/free-solid-svg-icons";
+import { faProductHunt } from "@fortawesome/free-brands-svg-icons";
+import Change from "./Change";
+
 function App() {
-	const [data, setData] = useState<pictureProps[]>([]);
-	const url =
-		"https://fakerapi.it/api/v1/images?_quantity=5&_type=kittens&_height=300";
-	const fetchImages = () => {
-		fetch(url)
-			.then((res) => res.json())
-			.then((json) => {
-				setData((prev) => [...prev, ...json.data]);
-			});
-	};
-
-	const hasReached = () => {
-		const scrollY = window.scrollY;
-		const innerHeight = window.innerHeight;
-		const totalHeight = document.documentElement.scrollHeight;
-		return scrollY + innerHeight > totalHeight - 1;
-	};
-	useEffect(() => {
-		fetchImages();
-		window.addEventListener("scroll", () => {
-			const result = hasReached();
-			if (result) fetchImages();
-		});
-	}, []);
-
+	const [data, setData] = useState<IconsProps[]>([
+		{surgery:"눈성형", icon: faEye },
+		{surgery:"코성형", icon: faBoxTissue },
+		{surgery:"보톡스", icon: faSyringe },
+		{surgery:"필러", icon: faProductHunt },
+	]);
 	return (
 		<div className="App">
-			<Counter />
-			{data.map((v, i) => (
-				<Picture key={i} {...v} />
+			<Change />
+			{data.map((v,i)=>(
+				<Icons key={i} {...v}></Icons>
 			))}
 		</div>
 	);
-}
+};
 
 export default App;
