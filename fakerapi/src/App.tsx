@@ -1,24 +1,18 @@
-import { useState } from "react";
-import Icons, { IconsProps } from "./Icons";
-import { faBoxTissue, faEye, faSyringe } from "@fortawesome/free-solid-svg-icons";
-import { faProductHunt } from "@fortawesome/free-brands-svg-icons";
-import Change from "./Change";
+import { useMediaQuery } from "react-responsive";
+import DeskTop from "./DeskTop";
+import Mobile from "./Mobile";
 
 function App() {
-	const [data, setData] = useState<IconsProps[]>([
-		{surgery:"눈성형", icon: faEye },
-		{surgery:"코성형", icon: faBoxTissue },
-		{surgery:"보톡스", icon: faSyringe },
-		{surgery:"필러", icon: faProductHunt },
-	]);
+	const isDesktop = useMediaQuery({ minWidth: 1224 });
+	const isTablet = useMediaQuery({ minWidth: 768, maxWidth: 1199 });
+	const isMobile = useMediaQuery({ minWidth: 0, maxWidth: 767 });
+
 	return (
 		<div className="App">
-			<Change />
-			{data.map((v,i)=>(
-				<Icons key={i} {...v}></Icons>
-			))}
+			{isDesktop && <DeskTop />}
+			{isMobile && <Mobile />}
 		</div>
 	);
-};
+}
 
 export default App;
